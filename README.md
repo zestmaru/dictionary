@@ -4,7 +4,7 @@
 
 A small mini game where you need to translate different words from Estonian into either English or Russian.
 
-![](./images/example.png)
+![](example.png)
 
 ## Tech Stack
 
