@@ -1,0 +1,9 @@
+services:
+
+  dictionary-frontend-builder:
+    image: dictionary-frontend-builder
+    build:
+      context: ./frontend
+    container_name: dictionary-frontend-builder
+    volumes:
+      - ./nginx/build:/app/build

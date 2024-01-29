@@ -1,0 +1,138 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.language-switch {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.lang-label {
+  margin-right: 10px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #0d6efd;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #0d6efd;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+.custom-switch-input {
+  position: absolute;
+  opacity: 0; /* Make the checkbox completely transparent */
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.label {
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+}
+
+input {
+  padding: 10px;
+  font-size: 1rem; 
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 10px 15px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* Added margin to create space for lang2 */
+.lang2 {
+  margin-left: 10px;
+}
+
+.error-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  /*background-color: rgba(255, 165, 0, 0.5);*/
+  color: #000000;
+}
+
+.error-screen h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.error-screen p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.error-screen button {
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  /* Adjust text size for smaller screens */
+  .label {
+    font-size: 1.2rem;
+  }
+
+  input {
+    font-size: 0.9rem;
+  }
+
+  button {
+    font-size: 0.9rem;
+  }
+}
