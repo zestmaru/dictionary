@@ -43,9 +43,8 @@ swagger = Swagger(app)
 # utf-8 for Russian lang
 app.config['JSON_AS_ASCII'] = False
 
+
 # Redirect index to /apidocs
-
-
 @app.route('/', methods=['GET'])
 def index():
     return redirect("/apidocs")
@@ -94,8 +93,6 @@ def get_list_word():
         app.logger.error("An error occurred: %s", str(e))
 
 # Header for the react frontend
-
-
 @app.after_request
 def add_header(response):
     response.headers['Access-Control-Allow-Origin'] = '*'
