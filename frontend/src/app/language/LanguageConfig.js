@@ -9,6 +9,7 @@ const languages = {
       incorrect: 'Incorrect! The word was: {rightWord}, but you entered: {userInput}',
       placeholder: 'Type translate...',
       httpError: 'HTTP error!',
+      emptyUserInput: 'Input cannot be empty!',
     },
     rus: {
       lang: 'Русский',
@@ -18,6 +19,7 @@ const languages = {
       incorrect: 'Неправильно! Слово было: {rightWord}, но Вы ввели: {userInput}',
       placeholder: 'Напишите перевод...',
       httpError: 'Ошибка HTTP!',
+      emptyUserInput: 'Поле ввода не может быть пустым!',
     },
   };
   

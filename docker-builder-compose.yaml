@@ -7,3 +7,4 @@ services:
     container_name: dictionary-frontend-builder
     volumes:
       - ./nginx/build:/app/build
+    command: sleep infinity

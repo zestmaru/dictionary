@@ -8,7 +8,7 @@ A small mini game where you need to translate different words from Estonian into
 
 ## Tech Stack
 
-* React
+* Next.js
 * Python Flask
 * MongoDB
 * Nginx
@@ -20,6 +20,7 @@ A small mini game where you need to translate different words from Estonian into
 1. Build frontend
 
        docker compose -f ./docker-builder-compose.yaml up -d
+       docker exec -it dictionary-frontend-builder bash -c "cp -r /app/out/* /app/build"
 
 1. Start containers
 

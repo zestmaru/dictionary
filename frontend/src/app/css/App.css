@@ -23,6 +23,10 @@
   height: 34px;
 }
 
+.form-control {
+  margin-bottom: 10px;
+}
+
 .slider {
   position: absolute;
   cursor: pointer;

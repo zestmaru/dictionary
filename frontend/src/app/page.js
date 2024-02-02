@@ -1,9 +1,16 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
+
 import { Oval } from 'react-loader-spinner'
 
-import './App.css';
-import languages from './LanguageConfig';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import './css/App.css';
+
+import languages from './language/LanguageConfig';
 
 function App() {
   const [wordData, setWordData] = useState({ rus: '', eng: '' });
@@ -12,11 +19,15 @@ function App() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const [mounted, setMounted] = useState(false);
+
   // Retrieve language preference from cookie, default to 'eng'
   const initialLang = Cookies.get('language') || 'eng';
   const [currentLang, setCurrentLang] = useState(initialLang);
 
   useEffect(() => {
+    setMounted(true);
+    
     // Make API call when the component mounts
     fetchWord();
   }, []); // Empty dependency array ensures the effect runs only once
@@ -74,6 +85,11 @@ function App() {
   };
 
   const handleButtonClick = () => {
+    if (userInput.trim() === '') {
+      toast.error(languages[currentLang].emptyUserInput);
+      return;
+    }
+
     // Check if the input matches the correct value when the button is clicked
     const correctValue = wordData[currentLang];
 
@@ -125,6 +141,8 @@ function App() {
     </div>
   );
 
+  if (!mounted) return <></>;
+
   return (
     <div className="App">
       {loading ? (
@@ -163,6 +181,8 @@ function App() {
           {currentScreen === 'error' && renderErrorScreen()}
         </>
       )}
+
+      <ToastContainer />
     </div>
   );
 }
