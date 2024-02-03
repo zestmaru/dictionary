@@ -23,6 +23,10 @@ function SelectGameApp() {
   const initialLang = Cookies.get('language') || 'eng';
   const [currentLang, setCurrentLang] = useState(initialLang);
 
+  // Retrieve theme preference from cookie, default to 'light-mode'
+  const initialMode = Cookies.get('theme') || 'light-mode';
+  const [darkMode, setDarkMode] = useState(initialMode === 'dark-mode');
+
   useEffect(() => {
     setMounted(true);
 
@@ -89,6 +93,13 @@ function SelectGameApp() {
     setCurrentLang(newLang);
     // Store language preference in a cookie
     Cookies.set('language', newLang);
+  };
+
+  const toggleTheme = () => {
+    const newTheme = darkMode ? 'light-mode' : 'dark-mode';
+    setDarkMode(!darkMode);
+    // Store theme preference in a cookie
+    Cookies.set('theme', newTheme);
   };
 
   const handleWordButtonClick = (selectedWord) => {
@@ -158,7 +169,7 @@ function SelectGameApp() {
   if (!mounted) return <></>;
 
   return (
-    <div className="App">
+    <div className={`App ${darkMode ? 'dark-mode' : 'light-mode'}`}>
       {loading ? (
         <Oval
         visible={true}
@@ -172,9 +183,19 @@ function SelectGameApp() {
       />
       ) : (
         <>
-          {/* Main content */}
+          <div className="dark-mode-switch">
+            <label className="switch">
+              <input
+                type="checkbox"
+                className="custom-switch-input"
+                checked={darkMode}
+                onChange={toggleTheme}
+              />
+              <span className="slider round"></span>
+            </label>
+          </div>
           <div className="language-switch">
-            {/* Render the switch only on the main screen */}
+            {/* Render the language switch only on the main screen */}
             {currentScreen === 'main' && (
             <>
               <span className="lang-label"><ReactCountryFlag
