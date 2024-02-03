@@ -126,6 +126,14 @@ button {
   cursor: pointer;
 }
 
+.word-buttons button {
+  margin-right: 10px;
+}
+
+.word-buttons button:last-child {
+  margin-right: 0;
+}
+
 @media (max-width: 768px) {
   /* Adjust text size for smaller screens */
   .label {

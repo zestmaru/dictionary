@@ -53,14 +53,18 @@ def index():
 @app.route('/get_single_word', methods=['GET'])
 def get_single_word():
     """
-    Get a single word from the database
+    Get a single word.
     ---
     responses:
       200:
-        description: A single word
+        description: Get a single word.
         examples:
           application/json:
-            {"eng":"Cat","est":"Kass","rus":"Кошка"}
+            {
+                "eng":"Cat",
+                "est":"Kass",
+                "rus":"Кошка"
+            }
     """
 
     try:
@@ -74,21 +78,58 @@ def get_single_word():
 @app.route('/get_list_word', methods=['GET'])
 def get_list_word():
     """
-    Get a list of words from the database
+    Get a list of words.
     ---
     responses:
       200:
-        description: A list of words
+        description: Get a list of words.
         examples:
           application/json:
-            [{"eng":"Cat","est":"Kass","rus":"Кошка"},
-            {"eng":"Dog","est":"Koer","rus":"Собака"}]
+            [
+                {
+                    "eng":"Cat",
+                    "est":"Kass",
+                    "rus":"Кошка"
+                },
+                {
+                    "eng":"Dog",
+                    "est":"Koer",
+                    "rus":"Собака"
+                }
+            ]
     """
 
     try:
         word_list = get_list_word_from_database(db_object)
 
         return word_list
+    except Exception as e:
+        app.logger.error("An error occurred: %s", str(e))
+
+
+@app.route('/get_random_est', methods=['GET'])
+def get_random_est():
+    """
+    Get a random word along with two random "est" words.
+    ---
+    responses:
+      200:
+        description: Get a random word along with two random "est" words.
+        examples:
+          application/json:
+            {
+                "eng": "Play",
+                "est": "Mängima",
+                "random_est_1": "Magus",
+                "random_est_2": "Tantsima",
+                "rus": "Играть"
+            }
+    """
+
+    try:
+        random_est_word_list = get_random_word_with_random_est(db_object)
+
+        return random_est_word_list
     except Exception as e:
         app.logger.error("An error occurred: %s", str(e))
 

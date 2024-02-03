@@ -4,7 +4,8 @@
 
 A small mini game where you need to translate different words from Estonian into either English or Russian.
 
-![](example.png)
+![](example_type.png)
+![](example_select.png)
 
 ## Tech Stack
 
@@ -30,3 +31,9 @@ A small mini game where you need to translate different words from Estonian into
 
 ### OpenAPI description
     http://localhost:5000/apidocs/
+
+### Start Local Development
+
+    docker compose -f ./docker-compose-mongo-only.yaml up -d
+    flask --app dictionary-backend.py run --host=0.0.0.0
+    npm install && npm run dev

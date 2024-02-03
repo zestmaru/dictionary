@@ -1,3 +1,4 @@
+import random
 
 def get_single_word_from_database(db):
     """
@@ -7,11 +8,10 @@ def get_single_word_from_database(db):
         db (pymongo.collection.Collection): MongoDB collection object
 
     Returns:
-        dict: A dictionary representing a single word, with keys 'eng', 'est', 'rus'
+        dict: A dictionary representing a single word, with keys "eng", "est", "rus"
     """
 
-    mongo = db
-    random_document = mongo.aggregate([{"$sample": {"size": 1}}]).next()
+    random_document = db.aggregate([{"$sample": {"size": 1}}]).next()
 
     # Convert BSON document to a Python dictionary
     word_dict = {
@@ -31,11 +31,10 @@ def get_list_word_from_database(db):
         db (pymongo.collection.Collection): MongoDB collection object
 
     Returns:
-        list: A list of dictionaries, each representing a word with keys 'eng', 'est', 'rus', etc.
+        list: A list of dictionaries, each representing a word with keys "eng", "est", "rus".
     """
 
-    mongo = db
-    all_documents = list(mongo.find({}))
+    all_documents = list(db.find({}))
 
     # Convert BSON documents to a list of dictionaries
     word_list = [
@@ -48,3 +47,28 @@ def get_list_word_from_database(db):
     ]
 
     return word_list
+
+
+def get_random_word_with_random_est(db):
+    """
+    Get a random word from the database along with two random "est" objects.
+
+    Parameters:
+        db (pymongo.collection.Collection): MongoDB collection object
+
+    Returns:
+        dict: A dictionary representing a random word with keys "eng", "est", "rus",
+              "random_est_1", and "random_est_2".
+    """
+
+    random_documents = list(db.aggregate([{ "$sample": { "size": 3 } }]))
+
+    word_dict = {
+        "eng": random_documents[0].get("eng", ""),
+        "est": random_documents[0].get("est", ""),
+        "rus": random_documents[0].get("rus", ""),
+        "random_est_1": random_documents[1].get("est", ""),
+        "random_est_2": random_documents[2].get("est", ""),
+    }
+
+    return word_dict
