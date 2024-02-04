@@ -22,6 +22,7 @@ A small mini game where you need to translate different words from Estonian into
 
        docker compose -f ./docker-builder-compose.yaml up -d
        docker exec -it dictionary-frontend-builder bash -c "cp -r /app/out/* /app/build"
+       docker compose -f ./docker-builder-compose.yaml down
 
 1. Start containers
 
