@@ -11,6 +11,9 @@ const languages = {
       placeholder: 'Type translate...',
       httpError: 'HTTP error!',
       emptyUserInput: 'Input cannot be empty!',
+      indexSelectGame: 'Choose game mode',
+      typeGame: 'Word Type',
+      SelectGame: '3 words',
     },
     rus: {
       lang: 'Русский',
@@ -22,6 +25,9 @@ const languages = {
       placeholder: 'Напишите перевод...',
       httpError: 'Ошибка HTTP!',
       emptyUserInput: 'Поле ввода не может быть пустым!',
+      indexSelectGame: 'Выберите режим игры',
+      typeGame: 'Ввод слова',
+      SelectGame: '3 слова',
     },
   };
   

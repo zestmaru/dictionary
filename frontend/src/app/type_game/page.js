@@ -33,6 +33,11 @@ function TypeGameApp() {
     fetchWord(apiUrl, setLoading, setWordData, setError, setCurrentScreen);
   }, []); // Empty dependency array ensures the effect runs only once
 
+  // Handle language switch on the client side
+  useEffect(() => {
+    languageSwitch(currentScreen);
+  }, [currentLang, currentScreen]);
+
   const handleInputChange = (e) => {
     // Update user input as the user types
     setUserInput(e.target.value);

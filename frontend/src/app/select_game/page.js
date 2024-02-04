@@ -35,6 +35,11 @@ function SelectGameApp() {
 
   }, [wordData]); // Update shuffledWordOrder when wordData changes
 
+  // Handle language switch on the client side
+  useEffect(() => {
+    languageSwitch(currentScreen);
+  }, [currentLang, currentScreen]);
+
   const shuffleWords = () => {
     const words = [wordData["est"], wordData["random_est_1"], wordData["random_est_2"]];
     const shuffledWords = words.sort(() => Math.random() - 0.5);
