@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Cookies from 'js-cookie';
+import { Sun, Moon } from 'react-bootstrap-icons';
 
 export const themeSwitcher = () => {
   // Retrieve theme preference from cookie, default to 'light-mode'
@@ -15,6 +16,9 @@ export const themeSwitcher = () => {
 
   const darkModeSwitch = (
     <div className="dark-mode-switch">
+      <span className="switch-label">
+        <Sun size={"2em"} />
+      </span>
       <label className="switch">
         <input
           type="checkbox"
@@ -24,6 +28,9 @@ export const themeSwitcher = () => {
         />
         <span className="slider round"></span>
       </label>
+      <span className="switch-label switch-right">
+        <Moon size={"2em"} />
+      </span>
     </div>
   );
   

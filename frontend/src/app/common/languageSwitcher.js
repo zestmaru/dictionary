@@ -20,7 +20,7 @@ export const languageSwitcher = () => {
       {/* Render the language switch only on the main screen */}
       {currentScreen === 'main' && (
       <>
-        <span className="lang-label"><ReactCountryFlag
+        <span className="switch-label"><ReactCountryFlag
           className="emojiFlag"
           countryCode="GB"
           style={{
@@ -35,7 +35,7 @@ export const languageSwitcher = () => {
             onChange={toggleLanguage} />
           <span className="slider round"></span>
         </label>
-        <span className="lang-label lang2"><ReactCountryFlag
+        <span className="switch-label switch-right"><ReactCountryFlag
           className="emojiFlag"
           countryCode="RU"
           style={{

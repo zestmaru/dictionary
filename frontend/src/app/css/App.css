@@ -12,7 +12,7 @@
   margin-bottom: 20px;
 }
 
-.lang-label {
+.switch-label {
   margin-right: 10px;
 }
 
@@ -95,8 +95,8 @@ button {
   cursor: pointer;
 }
 
-/* Added margin to create space for lang2 */
-.lang2 {
+/* Added margin to create space for right switch element */
+.switch-right {
   margin-left: 10px;
 }
 
@@ -166,6 +166,9 @@ button {
   top: 20px;
   right: 20px;
   z-index: 1000;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .dark-mode-switch .switch {
