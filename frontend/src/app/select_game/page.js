@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 
 import '../css/App.css';
 
-import languages from '../language/LanguageConfig';
+import { getLocalizedString } from '../language/LanguageConfig';
 import LoaderSpinner from '../common/loaderSpinner';
 import { themeSwitcher } from '../common/themeSwitcher';
 import { languageSwitcher } from '../common/languageSwitcher';
@@ -93,10 +93,10 @@ function SelectGameApp() {
       <h2>{currentLang === 'rus'
         ? wordData["rus"]
         : wordData["eng"]}</h2>
-      <h2>{languages[currentLang].correct} {wordData["est"]}</h2>
+      <h2>{getLocalizedString(currentLang, 'correct')} {wordData["est"]}</h2>
       <button 
         className="btn btn-success" 
-        onClick={handleRestart}>{languages[currentLang].restart}</button>
+        onClick={handleRestart}>{getLocalizedString(currentLang, 'restart')}</button>
     </div>
   );
 
@@ -105,17 +105,17 @@ function SelectGameApp() {
       <h2>{currentLang === 'rus'
         ? wordData["rus"]
         : wordData["eng"]}</h2>
-      <h2>{languages[currentLang].incorrectSelected.replace('{rightWord}', 
+      <h2>{getLocalizedString(currentLang, 'incorrectSelected').replace('{rightWord}', 
       wordData["est"]).replace('{userSelected}', userInput)}</h2>
       <button 
         className="btn btn-danger" 
-        onClick={handleRestart}>{languages[currentLang].restart}</button>
+        onClick={handleRestart}>{getLocalizedString(currentLang, 'restart')}</button>
     </div>
   );
 
   const renderErrorScreen = () => (
     <div className="container center-container error-screen">
-      <h2>{languages[currentLang].httpError}</h2>
+      <h2>{getLocalizedString(currentLang, 'httpError')}</h2>
       <p>{error}</p>
       {/* No switch or button on the error screen */}
     </div>

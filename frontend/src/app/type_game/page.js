@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import '../css/App.css';
 
-import languages from '../language/LanguageConfig';
+import { getLocalizedString } from '../language/LanguageConfig';
 import LoaderSpinner from '../common/loaderSpinner';
 import { themeSwitcher } from '../common/themeSwitcher';
 import { languageSwitcher } from '../common/languageSwitcher';
@@ -48,7 +48,7 @@ function TypeGameApp() {
 
   const handleButtonClick = () => {
     if (userInput.trim() === '') {
-      toast.error(languages[currentLang].emptyUserInput);
+      toast.error(getLocalizedString(currentLang, 'emptyUserInput'));
       return;
     }
 
@@ -73,39 +73,46 @@ function TypeGameApp() {
   const renderMainScreen = () => (
     <div className="container center-container">
       <div className="label">{wordData["est"]}:</div>
-      <input type="text" 
-        className="form-control" 
-        placeholder={languages[currentLang].placeholder} 
-        onChange={handleInputChange} value={userInput} />
-      <button className="btn btn-primary" 
-        onClick={handleButtonClick}>{languages[currentLang].check}</button>
+      <input
+        type="text"
+        className="form-control"
+        placeholder={getLocalizedString(currentLang, 'placeholder')}
+        onChange={handleInputChange}
+        value={userInput}
+      />
+      <button
+        className="btn btn-primary"
+        onClick={() => handleButtonClick()}
+      >
+        {getLocalizedString(currentLang, 'check')}
+      </button>
     </div>
   );
 
   const renderCorrectScreen = () => (
     <div className="container center-container">
       <h2>{wordData["est"]}</h2>
-      <h2>{languages[currentLang].correct} {wordData[currentLang]}</h2>
+      <h2>{getLocalizedString(currentLang, 'correct')} {wordData[currentLang]}</h2>
       <button 
         className="btn btn-success" 
-        onClick={handleRestart}>{languages[currentLang].restart}</button>
+        onClick={handleRestart}>{getLocalizedString(currentLang, 'restart')}</button>
     </div>
   );
 
   const renderIncorrectScreen = () => (
     <div className="container center-container">
       <h2>{wordData["est"]}</h2>
-      <h2>{languages[currentLang].incorrect.replace('{rightWord}', 
+      <h2>{getLocalizedString(currentLang, 'incorrect').replace('{rightWord}', 
       wordData[currentLang]).replace('{userInput}', userInput)}</h2>
       <button 
         className="btn btn-danger" 
-        onClick={handleRestart}>{languages[currentLang].restart}</button>
+        onClick={handleRestart}>{getLocalizedString(currentLang, 'restart')}</button>
     </div>
   );
 
   const renderErrorScreen = () => (
     <div className="container center-container error-screen">
-      <h2>{languages[currentLang].httpError}</h2>
+      <h2>{getLocalizedString(currentLang, 'httpError')}</h2>
       <p>{error}</p>
       {/* No switch or button on the error screen */}
     </div>

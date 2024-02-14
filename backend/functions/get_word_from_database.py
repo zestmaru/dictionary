@@ -23,22 +23,35 @@ def get_single_word_from_database(db):
     return word_dict
 
 
-def get_list_word_from_database(db):
+def get_list_word_from_database(db, page = 0):
     """
     Get a list of words from the database request
 
     Parameters:
         db (pymongo.collection.Collection): MongoDB collection object
+        page (int, optional): Page number for pagination. Defaults to 0. 
+            Provide 0 to get all objects from database. Page is limited to 10 objects.
 
     Returns:
-        list: A list of dictionaries, each representing a word with keys "eng", "est", "rus".
+        int: total count of objects
+        list: A list of dictionaries, each representing a word with keys "_id" of the Mongo ObjectId, "eng", "est", "rus".
     """
 
-    all_documents = list(db.find({}))
+    if (page != 0): 
+        # Pagination
+        page_size = 10
+        skip = (page - 1) * page_size
+
+        all_documents = list(db.find({}).skip(skip).limit(page_size))
+    else:
+        all_documents = list(db.find({}))
+
+    total_count = db.count_documents({})
 
     # Convert BSON documents to a list of dictionaries
     word_list = [
         {
+            "_id": str(document.get("_id")),
             "eng": document.get("eng", ""),
             "est": document.get("est", ""),
             "rus": document.get("rus", "")
@@ -46,7 +59,10 @@ def get_list_word_from_database(db):
         for document in all_documents
     ]
 
-    return word_list
+    return {
+        "word_list": word_list,
+        "total_count": total_count,
+    }
 
 
 def get_random_word_with_random_est(db):

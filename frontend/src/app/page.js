@@ -7,7 +7,7 @@ import './css/App.css';
 
 import { themeSwitcher } from './common/themeSwitcher';
 import { languageSwitcher } from './common/languageSwitcher';
-import languages from './language/LanguageConfig';
+import { getLocalizedString } from './language/LanguageConfig';
 
 export default function Index() {
     const [currentScreen] = useState('main');
@@ -42,19 +42,19 @@ export default function Index() {
             </div>
             <div className="container center-container">
                 <div className="label">
-                    {languages[currentLang].indexSelectGame}:
+                {getLocalizedString(currentLang, 'indexSelectGame')}:
                 </div>
                 <div className="word-buttons">
                     <Link legacyBehavior href="/type_game">
-                        <button className="btn btn-primary">{languages[currentLang].typeGame}</button>
+                        <button className="btn btn-primary">{getLocalizedString(currentLang, 'typeGame')}</button>
                     </Link>
                     <Link legacyBehavior href="/select_game">
-                        <button className="btn btn-primary"> {languages[currentLang].selectGame}</button>
+                        <button className="btn btn-primary"> {getLocalizedString(currentLang, 'selectGame')}</button>
                     </Link>
                 </div>
                 <div style={{marginTop: '10px'}}>
                     <Link legacyBehavior href="/edit_words">
-                        <button className="btn btn-primary"> {languages[currentLang].editWords}</button>
+                        <button className="btn btn-primary"> {getLocalizedString(currentLang, 'editWords')}</button>
                     </Link>
                 </div>
             </div>

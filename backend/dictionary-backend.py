@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from flask import Flask, redirect
+from flask import request
 from logging.config import dictConfig
 from flasgger import Swagger
 
@@ -80,27 +81,40 @@ def get_list_word():
     """
     Get a list of words.
     ---
+    parameters:
+      - name: page
+        in: query
+        type: integer
+        required: false
+        default: 0
+        description: Page number for pagination. Use 0 to get all objects. Page is limited to 10 objects.
     responses:
       200:
         description: Get a list of words.
         examples:
           application/json:
-            [
-                {
-                    "eng":"Cat",
-                    "est":"Kass",
-                    "rus":"Кошка"
-                },
-                {
-                    "eng":"Dog",
-                    "est":"Koer",
-                    "rus":"Собака"
-                }
-            ]
+            {
+                "total_count": 118,
+                "word_list": [
+                    {
+                        "_id": "65bfdecb83dd8c226b1039db",
+                        "eng":"Cat",
+                        "est":"Kass",
+                        "rus":"Кошка"
+                    },
+                    {
+                        "_id": "65bfdecb83dd8c226b1039dc",
+                        "eng":"Dog",
+                        "est":"Koer",
+                        "rus":"Собака"
+                    }
+                ]
+            }
     """
 
     try:
-        word_list = get_list_word_from_database(db_object)
+        page = int(request.args.get('page', 0))
+        word_list = get_list_word_from_database(db_object, page)
 
         return word_list
     except Exception as e:

@@ -254,3 +254,7 @@ body.dark-mode {
 .list-group {
   width: 50% !important;
 }
+
+.pagination {
+  margin-top: 10px !important;
+}

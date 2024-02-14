@@ -16,6 +16,9 @@ const languages = {
       selectGame: '3 words',
       editWords: 'Edit Word List',
       indexPage: 'Index Page',
+      noWordsFound: 'No words found',
+      paginationFirst: 'First',
+      paginationLast: 'Last',
     },
     rus: {
       lang: 'Русский',
@@ -32,8 +35,23 @@ const languages = {
       selectGame: '3 слова',
       editWords: 'Редактировать список слов',
       indexPage: 'Главная Страница',
+      noWordsFound: 'Слов не найдено',
+      paginationFirst: 'Начало',
+      paginationLast: 'Конец',
     },
   };
-  
+
+  const getLocalizedString = (lang, key) => {
+    const language = languages[lang];
+    if (language && language[key] !== undefined) {
+      return language[key];
+    } else {
+      // Log a warning to the console
+      console.warn(`Translation key "${key}" not found for language "${lang}"`);
+      
+      return `Translation not available for key: ${key}`;
+    }
+  };
+
 export default languages;
-  
+export { getLocalizedString };
