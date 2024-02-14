@@ -6,11 +6,14 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import '../css/App.css';
+
 import languages from '../language/LanguageConfig';
 import LoaderSpinner from '../common/loaderSpinner';
 import { themeSwitcher } from '../common/themeSwitcher';
 import { languageSwitcher } from '../common/languageSwitcher';
 import fetchWord from '../common/fetchWord';
+
+import IndexPageElement from '../common/indexPageButton';
 
 function TypeGameApp() {
   const [wordData, setWordData] = useState({ rus: '', eng: '' });
@@ -22,7 +25,7 @@ function TypeGameApp() {
   const [mounted, setMounted] = useState(false);
 
   const { languageSwitch, currentLang } = languageSwitcher();
-  const { darkMode, darkModeSwitch } = themeSwitcher();
+  const { darkModeSwitch } = themeSwitcher();
 
   const apiUrl = 'http://127.0.0.1:5000/get_single_word';
 
@@ -68,34 +71,40 @@ function TypeGameApp() {
   };
 
   const renderMainScreen = () => (
-    <div className="center">
+    <div className="container center-container">
       <div className="label">{wordData["est"]}:</div>
-      <input type="text" className="form-control" 
+      <input type="text" 
+        className="form-control" 
         placeholder={languages[currentLang].placeholder} 
         onChange={handleInputChange} value={userInput} />
-      <button className="btn btn-primary" onClick={handleButtonClick}>{languages[currentLang].check}</button>
+      <button className="btn btn-primary" 
+        onClick={handleButtonClick}>{languages[currentLang].check}</button>
     </div>
   );
 
   const renderCorrectScreen = () => (
-    <div className="center">
+    <div className="container center-container">
       <h2>{wordData["est"]}</h2>
       <h2>{languages[currentLang].correct} {wordData[currentLang]}</h2>
-      <button className="btn btn-success" onClick={handleRestart}>{languages[currentLang].restart}</button>
+      <button 
+        className="btn btn-success" 
+        onClick={handleRestart}>{languages[currentLang].restart}</button>
     </div>
   );
 
   const renderIncorrectScreen = () => (
-    <div className="center">
+    <div className="container center-container">
       <h2>{wordData["est"]}</h2>
       <h2>{languages[currentLang].incorrect.replace('{rightWord}', 
       wordData[currentLang]).replace('{userInput}', userInput)}</h2>
-      <button className="btn btn-danger" onClick={handleRestart}>{languages[currentLang].restart}</button>
+      <button 
+        className="btn btn-danger" 
+        onClick={handleRestart}>{languages[currentLang].restart}</button>
     </div>
   );
 
   const renderErrorScreen = () => (
-    <div className="error-screen">
+    <div className="container center-container error-screen">
       <h2>{languages[currentLang].httpError}</h2>
       <p>{error}</p>
       {/* No switch or button on the error screen */}
@@ -105,13 +114,30 @@ function TypeGameApp() {
   if (!mounted) return <></>;
 
   return (
-    <div className={`App ${darkMode ? 'dark-mode' : 'light-mode'}`}>
+    <div className="App">
       {loading ? (
         <LoaderSpinner />
       ) : (
         <>
-          {darkModeSwitch}
-          {languageSwitch(currentScreen)}
+          <div className="container">
+            <div className="row">
+                <div className="col-md-4">
+                  <div className="top-bar">
+                    {languageSwitch(currentScreen)}
+                  </div>
+                </div>
+                <div className="col-md-4">
+                  <div className="top-bar text-center">
+                    <IndexPageElement />
+                  </div>
+                </div>
+                <div className="col-md-4 d-flex justify-content-end">
+                  <div className="top-bar text-right">
+                    {darkModeSwitch}
+                  </div>
+                </div>
+            </div>
+          </div>
           {currentScreen === 'main' && renderMainScreen()}
           {currentScreen === 'correct' && renderCorrectScreen()}
           {currentScreen === 'incorrect' && renderIncorrectScreen()}

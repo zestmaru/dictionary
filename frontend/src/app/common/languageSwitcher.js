@@ -24,7 +24,7 @@ export const languageSwitcher = () => {
           className="emojiFlag"
           countryCode="GB"
           style={{
-              fontSize: '2em',
+              fontSize: '1.5em',
               lineHeight: '2em',
           }}
       /></span>
@@ -39,7 +39,7 @@ export const languageSwitcher = () => {
           className="emojiFlag"
           countryCode="RU"
           style={{
-              fontSize: '2em',
+              fontSize: '1.5em',
               lineHeight: '2em',
           }}
       /></span>

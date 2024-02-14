@@ -9,6 +9,7 @@ const nextConfig = {
           { route: '/app/page' },
           { route: '/app/select_game/page' },
           { route: '/app/type_game/page' },
+          { route: '/app/edit_words/page' },
         ];
     },
 };

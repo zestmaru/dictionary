@@ -13,7 +13,9 @@ const languages = {
       emptyUserInput: 'Input cannot be empty!',
       indexSelectGame: 'Choose game mode',
       typeGame: 'Word Type',
-      SelectGame: '3 words',
+      selectGame: '3 words',
+      editWords: 'Edit Word List',
+      indexPage: 'Index Page',
     },
     rus: {
       lang: 'Русский',
@@ -27,7 +29,9 @@ const languages = {
       emptyUserInput: 'Поле ввода не может быть пустым!',
       indexSelectGame: 'Выберите режим игры',
       typeGame: 'Ввод слова',
-      SelectGame: '3 слова',
+      selectGame: '3 слова',
+      editWords: 'Редактировать список слов',
+      indexPage: 'Главная Страница',
     },
   };
   

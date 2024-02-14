@@ -12,12 +12,14 @@ export const themeSwitcher = () => {
     setDarkMode(!darkMode);
     // Store theme preference in a cookie
     Cookies.set('theme', newTheme);
+
+    document.body.classList.toggle('dark-mode', newTheme === 'dark-mode');
   };
 
   const darkModeSwitch = (
     <div className="dark-mode-switch">
       <span className="switch-label">
-        <Sun size={"2em"} />
+        <Sun size={"1.5em"} />
       </span>
       <label className="switch">
         <input
@@ -29,7 +31,7 @@ export const themeSwitcher = () => {
         <span className="slider round"></span>
       </label>
       <span className="switch-label switch-right">
-        <Moon size={"2em"} />
+        <Moon size={"1.5em"} />
       </span>
     </div>
   );
