@@ -319,3 +319,22 @@ body.dark-mode .pagination .page-item.disabled .page-link {
   border-color: #1a1a1a;
   color: #6c757d;
 }
+
+body.dark-mode .modal-header {
+  background-color: #202020;
+  border-color: #ffffff;
+}
+
+body.dark-mode .modal-body {
+  background-color: #202020;
+  border-color: #ffffff;
+}
+
+body.dark-mode .modal-footer {
+  background-color: #202020;
+  border-color: #ffffff;
+}
+
+body.dark-mode .btn-close {
+  color: #ffffff;
+}
