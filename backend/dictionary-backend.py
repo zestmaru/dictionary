@@ -57,15 +57,22 @@ def get_single_word():
     Get a single word.
     ---
     responses:
-      200:
-        description: Get a single word.
-        examples:
-          application/json:
-            {
-                "eng":"Cat",
-                "est":"Kass",
-                "rus":"Кошка"
-            }
+        200:
+            description: Get a single word.
+            examples:
+                application/json:
+                    {
+                        "eng":"Cat",
+                        "est":"Kass",
+                        "rus":"Кошка"
+                    }
+        500:
+            description: Internal Server Error.
+            examples:
+                application/json:
+                    {
+                        "Error": "Unable to connect to the database."
+                    }
     """
 
     try:
@@ -89,27 +96,34 @@ def get_list_word():
         default: 0
         description: Page number for pagination. Use 0 to get all objects. Page is limited to 10 objects.
     responses:
-      200:
-        description: Get a list of words.
-        examples:
-          application/json:
-            {
-                "total_count": 118,
-                "word_list": [
+        200:
+            description: Get a list of words.
+            examples:
+                application/json:
                     {
-                        "_id": "65bfdecb83dd8c226b1039db",
-                        "eng":"Cat",
-                        "est":"Kass",
-                        "rus":"Кошка"
-                    },
-                    {
-                        "_id": "65bfdecb83dd8c226b1039dc",
-                        "eng":"Dog",
-                        "est":"Koer",
-                        "rus":"Собака"
+                        "total_count": 118,
+                        "word_list": [
+                            {
+                                "_id": "65bfdecb83dd8c226b1039db",
+                                "eng":"Cat",
+                                "est":"Kass",
+                                "rus":"Кошка"
+                            },
+                            {
+                                "_id": "65bfdecb83dd8c226b1039dc",
+                                "eng":"Dog",
+                                "est":"Koer",
+                                "rus":"Собака"
+                            }
+                        ]
                     }
-                ]
-            }
+        500:
+            description: Internal Server Error.
+            examples:
+                application/json:
+                    {
+                        "Error": "Unable to connect to the database."
+                    }
     """
 
     try:
@@ -127,17 +141,24 @@ def get_random_est():
     Get a random word along with two random "est" words.
     ---
     responses:
-      200:
-        description: Get a random word along with two random "est" words.
-        examples:
-          application/json:
-            {
-                "eng": "Play",
-                "est": "Mängima",
-                "random_est_1": "Magus",
-                "random_est_2": "Tantsima",
-                "rus": "Играть"
-            }
+        200:
+            description: Get a random word along with two random "est" words.
+            examples:
+                application/json:
+                    {
+                        "eng": "Play",
+                        "est": "Mängima",
+                        "random_est_1": "Magus",
+                        "random_est_2": "Tantsima",
+                        "rus": "Играть"
+                    }
+        500:
+            description: Internal Server Error.
+            examples:
+                application/json:
+                    {
+                        "Error": "Unable to connect to the database."
+                    }
     """
 
     try:
@@ -147,10 +168,119 @@ def get_random_est():
     except Exception as e:
         app.logger.error("An error occurred: %s", str(e))
 
+
+@app.route('/add_word', methods=['PUT'])
+def add_word():
+    """
+    Add a new word to the database.
+    ---
+    parameters:
+      - name: word_data
+        in: body
+        required: true
+        description: Word data in JSON format
+        schema:
+            type: object
+            properties:
+                est:
+                    type: string
+                    description: Estonian word
+                eng:
+                    type: string
+                    description: English word
+                rus:
+                    type: string
+                    description: Russian word
+    responses:
+        200:
+            description: Word added successfully.
+            examples:
+                application/json:
+                    {
+                        "Message": "Word added successfully.",
+                        "_id": "65cd38ae53d7a80b99a40f57"
+                    }
+        500:
+            description: Internal Server Error.
+            examples:
+                application/json:
+                    {
+                        "Error": "Unable to connect to the database."
+                    }
+        400:
+            description: Missing required fields.
+            examples:
+                application/json:
+                    {'Error': 'Missing required fields'}
+    """
+    try:
+        data = request.get_json()
+        call = put_word_to_database(db_object, data)
+
+        return call
+    except Exception as e:
+        app.logger.error("An error occurred: %s", str(e))
+
+
+@app.route('/delete_word', methods=['DELETE'])
+def delete_word():
+    """
+    Delete a word from the database.
+    ---
+    parameters:
+      - name: _id
+        in: query
+        type: string
+        required: true
+        default: 
+        description: MongoDB Object ID.
+    responses:
+        200:
+            description: Word deleted successfully.
+            examples:
+                application/json:
+                    {
+                        "Message": "Word deleted successfully.",
+                        "_id": "65cd38ae53d7a80b99a40f57"
+                    }
+        500:
+            description: Internal Server Error.
+            examples:
+                application/json:
+                    {
+                        "Error": "Unable to connect to the database."
+                    }
+        400:
+            description: Missing _id query.
+            examples:
+                application/json:
+                    {
+                        "Message": "Missing _id parameter.",
+                        "_id": "65cd38ae53d7a80b99a40f57"
+                    }
+        404:
+            description: Word not found with the given _id.
+            examples:
+                application/json:
+                    {
+                        "Message": "Word not found with the given _id.",
+                        "_id": "65cd38ae53d7a80b99a40f57"
+                    }
+    """
+    try:
+        word_id = request.args.get('_id')
+        call = delete_word_from_database(db_object, str(word_id))
+
+        return call
+    except Exception as e:
+        app.logger.error("An error occurred: %s", str(e))
+
 # Header for the react frontend
 @app.after_request
 def add_header(response):
     response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
     return response
 
 

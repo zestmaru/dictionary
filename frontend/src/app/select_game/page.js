@@ -54,7 +54,7 @@ function SelectGameApp() {
   const handleWordButtonClick = (selectedWord) => {
     setUserInput(selectedWord);
     const correctValue = wordData["est"];
-    
+
     if (selectedWord.toLowerCase() === correctValue.toLowerCase()) {
       setCurrentScreen('correct');
     } else {
@@ -71,15 +71,15 @@ function SelectGameApp() {
   const renderMainScreen = () => (
     <div className="container center-container">
       <div className="label">
-      {currentLang === 'rus'
-        ? wordData["rus"]
-        : wordData["eng"]}
-      :
-    </div>
+        {currentLang === 'rus'
+          ? wordData["rus"]
+          : wordData["eng"]}
+        :
+      </div>
       <div className="word-buttons">
         {shuffledWordOrder.map((word, index) => (
-          <button key={index} 
-            className="btn btn-primary" 
+          <button key={index}
+            className="btn btn-primary"
             onClick={() => handleWordButtonClick(word)}>
             {word}
           </button>
@@ -94,8 +94,8 @@ function SelectGameApp() {
         ? wordData["rus"]
         : wordData["eng"]}</h2>
       <h2>{getLocalizedString(currentLang, 'correct')} {wordData["est"]}</h2>
-      <button 
-        className="btn btn-success" 
+      <button
+        className="btn btn-success"
         onClick={handleRestart}>{getLocalizedString(currentLang, 'restart')}</button>
     </div>
   );
@@ -105,10 +105,10 @@ function SelectGameApp() {
       <h2>{currentLang === 'rus'
         ? wordData["rus"]
         : wordData["eng"]}</h2>
-      <h2>{getLocalizedString(currentLang, 'incorrectSelected').replace('{rightWord}', 
-      wordData["est"]).replace('{userSelected}', userInput)}</h2>
-      <button 
-        className="btn btn-danger" 
+      <h2>{getLocalizedString(currentLang, 'incorrectSelected').replace('{rightWord}',
+        wordData["est"]).replace('{userSelected}', userInput)}</h2>
+      <button
+        className="btn btn-danger"
         onClick={handleRestart}>{getLocalizedString(currentLang, 'restart')}</button>
     </div>
   );
@@ -126,26 +126,28 @@ function SelectGameApp() {
   return (
     <div className="App">
       {loading ? (
-        <LoaderSpinner />
+        <div className="center-container">
+          <LoaderSpinner />
+        </div>
       ) : (
         <>
           <div className="container">
             <div className="row">
-                <div className="col-md-4">
-                    <div className="top-bar">
-                      {languageSwitch(currentScreen)}
-                    </div>
+              <div className="col-md-4">
+                <div className="top-bar">
+                  {languageSwitch(currentScreen)}
                 </div>
-                <div className="col-md-4">
-                  <div className="top-bar text-center">
-                    <IndexPageElement />
-                  </div>
+              </div>
+              <div className="col-md-4">
+                <div className="top-bar text-center">
+                  <IndexPageElement />
                 </div>
-                <div className="col-md-4 d-flex justify-content-end">
-                    <div className="top-bar text-right">
-                      {darkModeSwitch}
-                    </div>
+              </div>
+              <div className="col-md-4 d-flex justify-content-end">
+                <div className="top-bar text-right">
+                  {darkModeSwitch}
                 </div>
+              </div>
             </div>
           </div>
           {currentScreen === 'main' && renderMainScreen()}

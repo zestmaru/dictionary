@@ -37,6 +37,5 @@ const fetchWord = async (url, setLoading, setWordData, setError, setCurrentScree
     setCurrentScreen('error');
   }
 };
-  
+
 export default fetchWord;
-  

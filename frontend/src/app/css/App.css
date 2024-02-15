@@ -45,7 +45,7 @@
 
 .form-control {
   margin-bottom: 10px;
-  width: 50% !important;
+  /* width: 50% !important; */
 }
 
 .slider {
@@ -74,15 +74,15 @@
   border-radius: 50%;
 }
 
-input:checked + .slider {
+input:checked+.slider {
   background-color: #0d6efd;
 }
 
-input:focus + .slider {
+input:focus+.slider {
   box-shadow: 0 0 1px #0d6efd;
 }
 
-input:checked + .slider:before {
+input:checked+.slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
@@ -90,7 +90,8 @@ input:checked + .slider:before {
 
 .custom-switch-input {
   position: absolute;
-  opacity: 0; /* Make the checkbox completely transparent */
+  opacity: 0;
+  /* Make the checkbox completely transparent */
 }
 
 .center {
@@ -107,7 +108,7 @@ input:checked + .slider:before {
 
 input {
   padding: 10px;
-  font-size: 1rem; 
+  font-size: 1rem;
   margin-bottom: 10px;
 }
 
@@ -129,6 +130,11 @@ button {
   justify-content: center;
   height: 100vh;
   color: #000000;
+}
+
+body.dark-mode .error-screen {
+  background-color: #1a1a1a;
+  color: #ffffff;
 }
 
 .error-screen h2 {
@@ -156,6 +162,7 @@ button {
 }
 
 @media (max-width: 768px) {
+
   /* Adjust text size for smaller screens */
   .label {
     font-size: 1.2rem;
@@ -226,15 +233,15 @@ body.dark-mode {
   border-radius: 50%;
 }
 
-.dark-mode-switch input:checked + .slider {
+.dark-mode-switch input:checked+.slider {
   background-color: #0d6efd;
 }
 
-.dark-mode-switch input:focus + .slider {
+.dark-mode-switch input:focus+.slider {
   box-shadow: 0 0 1px #0d6efd;
 }
 
-.dark-mode-switch input:checked + .slider:before {
+.dark-mode-switch input:checked+.slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
@@ -257,4 +264,58 @@ body.dark-mode {
 
 .pagination {
   margin-top: 10px !important;
+}
+
+body.dark-mode .table {
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+.table thead th {
+  background-color: #f8f9fa;
+}
+
+body.dark-mode .table thead th {
+  background-color: #343a40;
+  color: #ffffff;
+}
+
+.table tbody tr {
+  background-color: #ffffff;
+}
+
+body.dark-mode .table tbody tr {
+  background-color: #2d2d2d;
+  color: #ffffff;
+}
+
+body.dark-mode .table tbody td {
+  background-color: #2d2d2d;
+  color: #ffffff;
+}
+
+body.dark-mode .pagination {
+  background-color: #1a1a1a;
+}
+
+body.dark-mode .pagination .page-link {
+  background-color: #343a40;
+  border-color: #343a40;
+  color: #ffffff;
+}
+
+body.dark-mode .pagination .page-item.active .page-link {
+  background-color: #202020;
+  border-color: #ffffff;
+}
+
+body.dark-mode .pagination .page-link:hover {
+  background-color: #1a1a1a;
+  border-color: #343a40;
+}
+
+body.dark-mode .pagination .page-item.disabled .page-link {
+  background-color: #1a1a1a;
+  border-color: #1a1a1a;
+  color: #6c757d;
 }

@@ -31,7 +31,7 @@ function TypeGameApp() {
 
   useEffect(() => {
     setMounted(true);
-    
+
     // Make API call when the component mounts
     fetchWord(apiUrl, setLoading, setWordData, setError, setCurrentScreen);
   }, []); // Empty dependency array ensures the effect runs only once
@@ -76,6 +76,7 @@ function TypeGameApp() {
       <input
         type="text"
         className="form-control"
+        style={{ width: '50%' }}
         placeholder={getLocalizedString(currentLang, 'placeholder')}
         onChange={handleInputChange}
         value={userInput}
@@ -93,8 +94,8 @@ function TypeGameApp() {
     <div className="container center-container">
       <h2>{wordData["est"]}</h2>
       <h2>{getLocalizedString(currentLang, 'correct')} {wordData[currentLang]}</h2>
-      <button 
-        className="btn btn-success" 
+      <button
+        className="btn btn-success"
         onClick={handleRestart}>{getLocalizedString(currentLang, 'restart')}</button>
     </div>
   );
@@ -102,10 +103,10 @@ function TypeGameApp() {
   const renderIncorrectScreen = () => (
     <div className="container center-container">
       <h2>{wordData["est"]}</h2>
-      <h2>{getLocalizedString(currentLang, 'incorrect').replace('{rightWord}', 
-      wordData[currentLang]).replace('{userInput}', userInput)}</h2>
-      <button 
-        className="btn btn-danger" 
+      <h2>{getLocalizedString(currentLang, 'incorrect').replace('{rightWord}',
+        wordData[currentLang]).replace('{userInput}', userInput)}</h2>
+      <button
+        className="btn btn-danger"
         onClick={handleRestart}>{getLocalizedString(currentLang, 'restart')}</button>
     </div>
   );
@@ -123,26 +124,28 @@ function TypeGameApp() {
   return (
     <div className="App">
       {loading ? (
-        <LoaderSpinner />
+        <div className="center-container">
+          <LoaderSpinner />
+        </div>
       ) : (
         <>
           <div className="container">
             <div className="row">
-                <div className="col-md-4">
-                  <div className="top-bar">
-                    {languageSwitch(currentScreen)}
-                  </div>
+              <div className="col-md-4">
+                <div className="top-bar">
+                  {languageSwitch(currentScreen)}
                 </div>
-                <div className="col-md-4">
-                  <div className="top-bar text-center">
-                    <IndexPageElement />
-                  </div>
+              </div>
+              <div className="col-md-4">
+                <div className="top-bar text-center">
+                  <IndexPageElement />
                 </div>
-                <div className="col-md-4 d-flex justify-content-end">
-                  <div className="top-bar text-right">
-                    {darkModeSwitch}
-                  </div>
+              </div>
+              <div className="col-md-4 d-flex justify-content-end">
+                <div className="top-bar text-right">
+                  {darkModeSwitch}
                 </div>
+              </div>
             </div>
           </div>
           {currentScreen === 'main' && renderMainScreen()}

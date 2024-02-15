@@ -35,6 +35,6 @@ export const themeSwitcher = () => {
       </span>
     </div>
   );
-  
-    return { darkMode, toggleTheme, darkModeSwitch };
+
+  return { darkMode, toggleTheme, darkModeSwitch };
 };

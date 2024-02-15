@@ -7,11 +7,11 @@ export const IndexPageElement = () => {
     const indexPageButton = (
         <div className="index-label">
             <Link legacyBehavior href="/">
-                <button className="btn btn-primary"><House size={"1.5em"}/></button>
+                <button className="btn btn-primary"><House size={"1.5em"} /></button>
             </Link>
         </div>
     );
-    
+
     return indexPageButton;
 };
 
