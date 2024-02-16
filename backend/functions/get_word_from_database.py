@@ -162,6 +162,52 @@ def put_word_to_database(db, data):
             return {"Error": f"An unexpected error occurred: {error_message}"}, 500
 
 
+def put_word_list_to_database(db, data):
+    """
+    Add a list of words to the database.
+
+    Parameters:
+        db (pymongo.collection.Collection): MongoDB collection object.
+        data (dict): A dictionary containing 'word_list' key with a list of words.
+            Each word should have 'eng', 'est', and 'rus' fields.
+
+    Returns:
+        dict: A dictionary containing either a success message and a list of inserted words' _ids,
+            or an error message with an appropriate status code.
+
+    Raises:
+        Exception: If an unexpected error occurs during the database operation.
+    """
+    try:
+        if 'word_list' not in data or not isinstance(data['word_list'], list):
+            return {"Error": "Missing or invalid 'word_list' field."}, 400
+
+        inserted_ids = []
+
+        for word_data in data['word_list']:
+            if 'eng' not in word_data or 'est' not in word_data or 'rus' not in word_data:
+                return {"Error": "Each word must have 'eng', 'est', and 'rus' fields."}, 400
+
+            # Extract only 'eng', 'est', and 'rus' fields from the data
+            word_data_filtered = {
+                'eng': word_data.get('eng', ''),
+                'est': word_data.get('est', ''),
+                'rus': word_data.get('rus', '')
+            }
+
+            word_id = db.insert_one(word_data_filtered).inserted_id
+            inserted_ids.append(str(word_id))
+
+        return {"Message": "Words added successfully.", "inserted_ids": inserted_ids}
+
+    except Exception as e:
+        error_message = str(e)
+        if 'Connection refused' in error_message:
+            return {"Error": "Unable to connect to the database."}, 500
+        else:
+            return {"Error": f"An unexpected error occurred: {error_message}"}, 500
+
+
 def delete_word_from_database(db, word_id):
     """
     Delete a word from the database.

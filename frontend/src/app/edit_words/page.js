@@ -158,9 +158,9 @@ function EditWordsPage() {
               <thead>
                 <tr>
                   <th scope="col">ID</th>
-                  <th scope="col">English</th>
-                  <th scope="col">Estonian</th>
-                  <th scope="col">Russian</th>
+                  <th scope="col">Est</th>
+                  <th scope="col">Eng</th>
+                  <th scope="col">Rus</th>
                   <th scope="col">{getLocalizedString(currentLang, 'tableActions')}</th>
                 </tr>
               </thead>
@@ -168,8 +168,8 @@ function EditWordsPage() {
                 {wordData.word_list.map(word => (
                   <tr key={word._id}>
                     <td>{word._id}</td>
-                    <td>{word.eng}</td>
                     <td>{word.est}</td>
+                    <td>{word.eng}</td>
                     <td>{word.rus}</td>
                     <td>
                       <button className="btn btn-danger" onClick={() => handleDeleteWord(word._id)}>{getLocalizedString(currentLang, 'delete')}</button>
@@ -187,14 +187,14 @@ function EditWordsPage() {
     } else {
       return (
         <>
-        <AddWordForm
-          currentLang={currentLang}
-          languageSwitch={languageSwitch}
-          updateMainScreen={updateMainScreen}
-        />
-        <div className="container word-list">
-          <p>{getLocalizedString(currentLang, 'noWordsFound')}</p>
-        </div>
+          <AddWordForm
+            currentLang={currentLang}
+            languageSwitch={languageSwitch}
+            updateMainScreen={updateMainScreen}
+          />
+          <div className="container word-list">
+            <p>{getLocalizedString(currentLang, 'noWordsFound')}</p>
+          </div>
         </>
       );
     }

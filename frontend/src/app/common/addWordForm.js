@@ -12,6 +12,7 @@ function AddWordForm({ currentLang, languageSwitch, updateMainScreen }) {
     const [currentScreen] = useState('main');
     const [wordData, setWordData] = useState({ est: '', eng: '', rus: '' });
     const [showModal, setShowModal] = useState(false);
+    const [file, setFile] = useState(null);
 
     const handleChange = (field, value) => {
         setWordData(prevData => ({
@@ -68,9 +69,89 @@ function AddWordForm({ currentLang, languageSwitch, updateMainScreen }) {
                 });
             }
         } catch (error) {
-            console.error('Error during fetch:', error);
-            toast.error('An error occurred', {
+            toast.error(error.message || 'An error occurred', {
+                onClose: () => {},
+            });
+        }
+    };
+
+    const handleExport = async () => {
+        try {
+            const response = await fetch('http://127.0.0.1:5000/get_list_word?page=0');
+            if (response.ok) {
+                const data = await response.json();
+
+                const jsonString = JSON.stringify(data, null, 2);
+                const blob = new Blob([jsonString], { type: 'application/json' });
+
+                const link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = 'word_list.json';
+
+                document.body.appendChild(link);
+                link.click();
+
+                document.body.removeChild(link);
+
+                toast.success(getLocalizedString(currentLang, 'dbExported'));
+                setTimeout(() => {
+                    updateMainScreen();
+                  }, 500);
+            } else {
+                const errorData = await response.text();
+                toast.error(errorData.message || 'An error occurred', {
+                    onClose: () => { },
+                });
+            }
+        } catch (error) {
+            toast.error(errorMessage, {
                 onClose: () => { },
+            });
+        }
+    };
+
+    const handleFileChange = (e) => {
+        const selectedFile = e.target.files[0];
+        setFile(selectedFile);
+
+        handleImport(selectedFile);
+    };
+
+    const handleImport = async (selectedFile) => {
+        try {
+            if (!selectedFile) {
+                toast.error(getLocalizedString(currentLang, 'selectFile'), {
+                    onClose: () => {},
+                });
+                return;
+            }
+
+            if (selectedFile.type !== 'application/json') {
+                toast.error(getLocalizedString(currentLang, 'invalidFileType'), {
+                    onClose: () => {},
+                });
+                return;
+            }
+
+            const response = await fetch('http://127.0.0.1:5000/add_word_list', {
+                method: 'PUT',
+                body: selectedFile,
+                headers: {
+                    
+                  },
+            });
+
+            if (response.ok) {
+                toast.success(getLocalizedString(currentLang, 'dbImported'));
+            } else {
+                const errorData = await response.text();
+                toast.error(errorData.message || 'An error occurred', {
+                    onClose: () => { },
+                });
+            }
+        } catch (error) {
+            toast.error(error.message || 'An error occurred', {
+                onClose: () => {},
             });
         }
     };
@@ -80,9 +161,32 @@ function AddWordForm({ currentLang, languageSwitch, updateMainScreen }) {
 
     return (
         <div>
-            <button type="button" className="btn btn-primary" onClick={handleShow}>
-                <PlusSquare size={"1.5em"} />
-            </button>
+            <div className="container">
+                <div className="row">
+                    <div className="col-sm">
+                        <button type="button" className="btn btn-primary" onClick={handleShow}>
+                            {getLocalizedString(currentLang, 'addWord')}
+                        </button>
+                    </div>
+                    <div className="col-sm">
+                    <label htmlFor="fileInput" className="btn btn-success">
+                        {getLocalizedString(currentLang, 'importEntireObject')}
+                        <input
+                            type="file"
+                            id="fileInput"
+                            accept=".json"
+                            style={{ display: 'none' }}
+                            onChange={handleFileChange}
+                        />
+                    </label>
+                    </div>
+                    <div className="col-sm">
+                        <button type="button" className="btn btn-warning" onClick={handleExport}>
+                            {getLocalizedString(currentLang, 'exportEntireObject')}
+                        </button>
+                    </div>
+                </div>
+            </div>
 
             {showModal && (
                 <div className="modal" tabIndex="-1" role="dialog" style={{ display: 'block' }}>

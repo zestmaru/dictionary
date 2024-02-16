@@ -222,6 +222,66 @@ def add_word():
         app.logger.error("An error occurred: %s", str(e))
 
 
+@app.route('/add_word_list', methods=['PUT'])
+def add_word_list():
+    """
+    Add a list of words to the database.
+    ---
+    parameters:
+      - name: word_list
+        in: body
+        required: true
+        description: List of words to add in JSON format
+        schema:
+            type: object
+            properties:
+                word_list:
+                    type: array
+                    description: List of words
+                    items:
+                        type: object
+                        properties:
+                            est:
+                                type: string
+                                description: Estonian word
+                            eng:
+                                type: string
+                                description: English word
+                            rus:
+                                type: string
+                                description: Russian word
+    responses:
+        200:
+            description: Words added successfully.
+            examples:
+                application/json:
+                    {
+                        "Message": "Words added successfully.",
+                        "inserted_ids": ["65cd38ae53d7a80b99a40f57", "65cd38ae53d7a80b99a40f58"]
+                    }
+        500:
+            description: Internal Server Error.
+            examples:
+                application/json:
+                    {
+                        "Error": "Unable to connect to the database."
+                    }
+        400:
+            description: Missing required fields.
+            examples:
+                application/json:
+                    {'Error': 'Missing required fields'}
+    """
+    try:
+        data = request.get_json()
+        app.logger.info(f'Received data: {data}')
+        call = put_word_list_to_database(db_object, data)
+
+        return call
+    except Exception as e:
+        app.logger.error("An error occurred: %s", str(e))
+
+
 @app.route('/delete_word', methods=['DELETE'])
 def delete_word():
     """
@@ -276,6 +336,8 @@ def delete_word():
         app.logger.error("An error occurred: %s", str(e))
 
 # Header for the react frontend
+
+
 @app.after_request
 def add_header(response):
     response.headers['Access-Control-Allow-Origin'] = '*'
