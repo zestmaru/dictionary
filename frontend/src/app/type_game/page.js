@@ -27,7 +27,7 @@ function TypeGameApp() {
   const { languageSwitch, currentLang } = languageSwitcher();
   const { darkModeSwitch } = themeSwitcher();
 
-  const apiUrl = 'http://127.0.0.1:5000/get_single_word';
+  const apiUrl = 'http://dictionary-backend:5000/get_single_word';
 
   useEffect(() => {
     setMounted(true);

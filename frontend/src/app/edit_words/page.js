@@ -35,7 +35,7 @@ function EditWordsPage() {
   const [forceRender, setForceRender] = useState(0);
 
   const pageSize = 10; // Set the number of items per page
-  const apiUrl = `http://127.0.0.1:5000/get_list_word?page=${currentPage}`;
+  const apiUrl = `http://dictionary-backend:5000/get_list_word?page=${currentPage}`;
 
   const updateMainScreen = useCallback(() => {
     setForceRender(forceRender + 1);
@@ -61,7 +61,7 @@ function EditWordsPage() {
 
   const handleDeleteWord = async (wordId) => {
     try {
-      const response = await fetch(`http://127.0.0.1:5000/delete_word?_id=${wordId}`, {
+      const response = await fetch(`http://dictionary-backend:5000/delete_word?_id=${wordId}`, {
         method: 'DELETE',
         headers: {
           'Accept': 'application/json',

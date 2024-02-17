@@ -24,7 +24,7 @@ function SelectGameApp() {
   const { languageSwitch, currentLang } = languageSwitcher();
   const { darkModeSwitch } = themeSwitcher();
 
-  const apiUrl = 'http://127.0.0.1:5000/get_random_est';
+  const apiUrl = 'http://dictionary-backend:5000/get_random_est';
 
   useEffect(() => {
     setMounted(true);
