@@ -42,7 +42,7 @@ function AddWordForm({ currentLang, languageSwitch, updateMainScreen }) {
                 rus: wordData.rus,
             };
 
-            const response = await fetch('http://dictionary-backend:5000/add_word', {
+            const response = await fetch('/api/add_word', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ function AddWordForm({ currentLang, languageSwitch, updateMainScreen }) {
 
     const handleExport = async () => {
         try {
-            const response = await fetch('http://dictionary-backend:5000/get_list_word?page=0');
+            const response = await fetch('/api/get_list_word?page=0');
             if (response.ok) {
                 const data = await response.json();
 
@@ -133,7 +133,7 @@ function AddWordForm({ currentLang, languageSwitch, updateMainScreen }) {
                 return;
             }
 
-            const response = await fetch('http://dictionary-backend:5000/add_word_list', {
+            const response = await fetch('/api/add_word_list', {
                 method: 'PUT',
                 body: selectedFile,
                 headers: {
