@@ -40,6 +40,7 @@ services:
 
   dictionary-nginx:
     image: dictionary-nginx
+    restart: always
     build:
       context: ./nginx
       dockerfile: Dockerfile
