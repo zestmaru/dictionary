@@ -2,7 +2,7 @@
 
 ## Intro
 
-A small mini game where you need to translate different words from Estonian into either English or Russian.
+A small mini game where you need to translate different words from Estonian into either English or Russian. You can also add, remove, import and export the list of your words.
 
 ![](example_type.png)
 ![](example_select.png)
